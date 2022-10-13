@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">ACDAT-Calculadora</string>
+    <string name="mc">MC</string>
+    <string name="mmas">M+</string>
+    <string name="mmenos">M-</string>
+    <string name="mr">MR</string>
+    <string name="c">C</string>
+    <string name="masmenos">+/-</string>
+    <string name="div">/</string>
+    <string name="mul">X</string>
+    <string name="sumar">+</string>
+    <string name="restar">-</string>
+    <string name="igual">=</string>
+    <string name="coma">.</string>
+    <string name="n0">0</string>
+    <string name="n1">1</string>
+    <string name="n2">2</string>
+    <string name="n3">3</string>
+    <string name="n4">4</string>
+    <string name="n5">5</string>
+    <string name="n6">6</string>
+    <string name="n7">7</string>
+    <string name="n8">8</string>
+    <string name="n9">9</string>
 </resources>
