@@ -5,9 +5,9 @@
     <string name="mmenos">M-</string>
     <string name="mr">MR</string>
     <string name="c">C</string>
-    <string name="masmenos">+/-</string>
+    <string name="porcentaje">%</string>
     <string name="div">/</string>
-    <string name="mul">X</string>
+    <string name="mul">x</string>
     <string name="sumar">+</string>
     <string name="restar">-</string>
     <string name="igual">=</string>
@@ -22,4 +22,5 @@
     <string name="n7">7</string>
     <string name="n8">8</string>
     <string name="n9">9</string>
+    <string name="resultado">0</string>
 </resources>
