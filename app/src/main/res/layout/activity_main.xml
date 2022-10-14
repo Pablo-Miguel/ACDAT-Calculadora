@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="379dp"
-        android:layout_height="300dp"
+        android:layout_width="381dp"
+        android:layout_height="203dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -19,37 +19,39 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <HorizontalScrollView
+            android:id="@+id/scrollViewOp"
             android:layout_width="match_parent"
-            android:layout_height="157dp">
+            android:layout_height="100dp">
 
             <TextView
                 android:id="@+id/lblOperacion"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:width="379dp"
-                android:height="150dp"
+                android:height="100dp"
                 android:gravity="center_vertical|end"
-                android:paddingStart="0sp"
-                android:paddingEnd="40sp"
-                android:singleLine="true"
+                android:paddingStart="10sp"
+                android:paddingEnd="10sp"
+                android:singleLine="false"
                 android:textSize="50sp"
                 android:textStyle="bold" />
         </HorizontalScrollView>
 
         <HorizontalScrollView
+            android:id="@+id/scrollViewRes"
             android:layout_width="match_parent"
-            android:layout_height="143dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/lblResultado"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:width="379dp"
-                android:height="150dp"
+                android:height="100dp"
                 android:gravity="center_vertical|end"
-                android:paddingStart="0sp"
-                android:paddingEnd="40sp"
-                android:singleLine="true"
+                android:paddingStart="10sp"
+                android:paddingEnd="10sp"
+                android:singleLine="false"
                 android:text="@string/resultado"
                 android:textSize="30sp"
                 android:textStyle="bold" />
@@ -59,21 +61,20 @@
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/gridLayout"
-        android:layout_width="379dp"
-        android:layout_height="427dp"
+        android:layout_width="381dp"
+        android:layout_height="570dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="78dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <Button
             android:id="@+id/btnMC"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/mc"
@@ -86,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/mmas"
@@ -99,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/mmenos"
@@ -112,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/mr"
@@ -125,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/c"
@@ -138,7 +139,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/porcentaje"
@@ -151,7 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/div"
@@ -164,7 +165,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/mul"
@@ -177,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/n7"
@@ -190,7 +191,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/n8"
@@ -203,7 +204,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/n9"
@@ -216,7 +217,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/restar"
@@ -229,7 +230,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/n4"
@@ -242,7 +243,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/n5"
@@ -255,7 +256,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/n6"
@@ -268,7 +269,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/sumar"
@@ -281,7 +282,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/n1"
@@ -294,7 +295,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/n2"
@@ -307,7 +308,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/n3"
@@ -320,7 +321,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/igual"
@@ -335,7 +336,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/n0"
@@ -351,7 +352,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="95dp"
-            android:height="71dp"
+            android:height="95dp"
             android:insetLeft="3dp"
             android:insetRight="3dp"
             android:text="@string/coma"
@@ -359,5 +360,22 @@
             app:layout_column="2"
             app:layout_row="5" />
     </androidx.gridlayout.widget.GridLayout>
+
+    <FrameLayout
+        android:id="@+id/frameContainer"
+        android:layout_width="409dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navigationMenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

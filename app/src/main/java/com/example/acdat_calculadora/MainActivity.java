@@ -1,21 +1,23 @@
 package com.example.acdat_calculadora;
 
-import android.content.SyncStatusObserver;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.acdat_calculadora.databinding.ActivityMainBinding;
 import com.example.acdat_calculadora.eventos.CalculadoraEventos;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private Double memoria;
     private Boolean igual, sign;
     private String lastNum, lastCad;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +28,14 @@ public class MainActivity extends AppCompatActivity {
 
         memoria = 0.0;
         igual = false;
-        sign = true;
+        sign = false;
         lastNum = "";
         lastCad = "";
         new CalculadoraEventos(this);
+        binding.lblOperacion.setScrollbarFadingEnabled(true);
+        binding.lblOperacion.setHorizontallyScrolling(true);
+        binding.lblResultado.setScrollbarFadingEnabled(true);
+        binding.lblResultado.setHorizontallyScrolling(true);
 
     }
 
@@ -38,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setMemoriaRes() {
-        if (!binding.lblResultado.getText().toString().equals("Infinity")) {
-            memoria = Double.parseDouble(binding.lblResultado.getText().toString());
+        if (!binding.lblResultado.getText().toString().equals("=Infinity") && !binding.lblResultado.getText().toString().equals("0") && !binding.lblResultado.getText().toString().equals("=0")) {
+            memoria = Double.parseDouble(binding.lblResultado.getText().subSequence(1, binding.lblResultado.getText().length()).toString());
         }
     }
 
@@ -58,16 +64,16 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Double resultado = eval(binding.lblOperacion.getText().toString());
                 if (resultado % 1 == 0) {
-                    binding.lblResultado.setText("" + Math.round(resultado));
+                    binding.lblResultado.setText("=" + Math.round(resultado));
                 } else {
-                    binding.lblResultado.setText("" + (Math.round(resultado * 100) / 100.0));
+                    binding.lblResultado.setText("=" + (Math.round(resultado * 100) / 100.0));
                 }
             } else {
                 binding.lblOperacion.setText("" + memoria);
                 if (memoria % 1 == 0) {
-                    binding.lblResultado.setText("" + Math.round(memoria));
+                    binding.lblResultado.setText("=" + Math.round(memoria));
                 } else {
-                    binding.lblResultado.setText("" + (Math.round(memoria * 100) * 100.0));
+                    binding.lblResultado.setText("=" + (Math.round(memoria * 100) * 100.0));
                 }
                 igual = false;
             }
@@ -77,64 +83,67 @@ public class MainActivity extends AppCompatActivity {
     public void setNumPantalla(String num) {
         establecerTamanyo();
         sign = true;
-        if (!binding.lblResultado.getText().equals("Infinity")) {
+        if (!binding.lblResultado.getText().equals("=Infinity") || igual) {
             if (!igual) {
                 lastNum += num;
-                if (!num.equals(".")) {
-                    if (Double.parseDouble(num) % 1 == 0) {
-                        binding.lblOperacion.setText(binding.lblOperacion.getText() + "" + (Math.round(Double.parseDouble(num))));
+                if (Double.parseDouble(num) % 1 == 0) {
+                    binding.lblOperacion.setText(binding.lblOperacion.getText() + "" + (Math.round(Double.parseDouble(num))));
+                } else {
+                    binding.lblOperacion.setText(binding.lblOperacion.getText() + "" + (Math.round(Double.parseDouble(num) * 100) / 100.0));
+                }
+                Double resultado = eval(binding.lblOperacion.getText().toString());
+                if (resultado % 1 == 0) {
+                    if (Double.isInfinite(resultado)) {
+                        binding.lblResultado.setText("=" + resultado);
                     } else {
-                        binding.lblOperacion.setText(binding.lblOperacion.getText() + "" + (Math.round(Double.parseDouble(num) * 100) / 100.0));
+                        binding.lblResultado.setText("=" + Math.round(resultado));
                     }
-                    Double resultado = eval(binding.lblOperacion.getText().toString());
-                    if (resultado % 1 == 0) {
-                        if(resultado.toString().equals("Infinity")){
-                            binding.lblResultado.setText("" + resultado);
-                        }
-                        else{
-                            binding.lblResultado.setText("" + Math.round(resultado));
-                        }
+                } else {
+                    if (Double.isInfinite(resultado)) {
+                        binding.lblResultado.setText("=" + resultado);
                     } else {
-                        if(resultado.toString().equals("Infinity")) {
-                            binding.lblResultado.setText("" + resultado);
-                        } else {
-                            binding.lblResultado.setText("" + (Math.round(resultado * 100) / 100.0));
-                        }
-                    }
-                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    if (lastNum.chars().filter(ch -> ch == '.').count() <= 1) {
-                        binding.lblOperacion.setText(binding.lblOperacion.getText() + num);
-                        binding.lblResultado.setText("" + eval(binding.lblOperacion.getText().toString()));
+                        binding.lblResultado.setText("=" + (Math.round(resultado * 100) / 100.0));
                     }
                 }
             } else {
                 if (Double.parseDouble(num) % 1 == 0) {
                     binding.lblOperacion.setText("" + (Math.round(Double.parseDouble(num))));
-                    binding.lblResultado.setText("" + (Math.round(Double.parseDouble(num))));
+                    binding.lblResultado.setText("=" + (Math.round(Double.parseDouble(num))));
                 } else {
                     binding.lblOperacion.setText("" + (Math.round(Double.parseDouble(num) * 100) / 100.0));
-                    binding.lblResultado.setText("" + (Math.round(Double.parseDouble(num) * 100) / 100.0));
+                    binding.lblResultado.setText("=" + (Math.round(Double.parseDouble(num) * 100) / 100.0));
                 }
+                lastNum = num;
                 igual = false;
             }
-
+            System.out.println("Numero: " + lastNum);
         }
+    }
 
+    public void setComaPantalla() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            if (lastNum.chars().filter(ch -> ch == '.').count() < 1) {
+                lastNum += ".";
+                binding.lblOperacion.setText(binding.lblOperacion.getText() + ".");
+            }
+            System.out.println("Numero: " + lastNum);
+            System.out.println("Cont puntos: " + lastNum.chars().filter(ch -> ch == '.').count());
+        }
     }
 
     public void setSignoPantalla(String signo) {
         establecerTamanyo();
-        if (!binding.lblResultado.getText().equals("Infinity")) {
+        if (!binding.lblResultado.getText().equals("=Infinity")) {
             if (sign) {
                 if (!igual) {
                     binding.lblOperacion.setText(binding.lblOperacion.getText() + signo);
-                    lastNum = "";
-                    lastCad = binding.lblOperacion.getText().toString();
                 } else {
-                    binding.lblOperacion.setText(binding.lblResultado.getText() + signo);
+                    binding.lblOperacion.setText(binding.lblResultado.getText().subSequence(1, binding.lblResultado.getText().length()) + signo);
                     igual = false;
                 }
+                lastCad = binding.lblOperacion.getText().toString();
             }
+            lastNum = "";
             sign = false;
         }
     }
@@ -146,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setPorcentaje() {
         establecerTamanyo();
-        if (!lastNum.equals("") && !lastCad.equals("") && !binding.lblResultado.getText().equals("Infinity")) {
+        if (!lastNum.equals("") && !lastCad.equals("") && !binding.lblResultado.getText().equals("=Infinity")) {
             char car = binding.lblOperacion.getText().charAt(binding.lblOperacion.getText().length() - 1);
             if (car != '+' && car != '-' && car != 'x' && car != '/' && car != ' ') {
                 if (!igual) {
@@ -157,17 +166,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                     Double resultado = eval(binding.lblOperacion.getText().toString());
                     if (eval(binding.lblOperacion.getText().toString()) % 1 == 0) {
-                        binding.lblResultado.setText("" + (Math.round(resultado)));
+                        binding.lblResultado.setText("=" + (Math.round(resultado)));
                     } else {
-                        binding.lblResultado.setText("" + (Math.round(resultado * 100) / 100.0));
+                        binding.lblResultado.setText("=" + (Math.round(resultado * 100) / 100.0));
                     }
                 } else {
-                    if ((Double.parseDouble(binding.lblResultado.getText().toString()) / 100.0) % 1 == 0) {
-                        binding.lblOperacion.setText("" + (Math.round(Double.parseDouble(binding.lblResultado.getText().toString()) / 100.0)));
-                        binding.lblResultado.setText("" + (Math.round(Double.parseDouble(binding.lblResultado.getText().toString()) / 100.0)));
+                    if ((Double.parseDouble(binding.lblResultado.getText().subSequence(1, binding.lblResultado.getText().length()).toString()) / 100.0) % 1 == 0) {
+                        binding.lblOperacion.setText("" + (Math.round(Double.parseDouble(binding.lblResultado.getText().subSequence(1, binding.lblResultado.getText().length()).toString()) / 100.0)));
+                        binding.lblResultado.setText("=" + (Math.round(Double.parseDouble(binding.lblResultado.getText().subSequence(1, binding.lblResultado.getText().length()).toString()) / 100.0)));
                     } else {
-                        binding.lblOperacion.setText("" + (Math.round(Double.parseDouble(binding.lblResultado.getText().toString()) / 100.0 * 100) / 100.0));
-                        binding.lblResultado.setText("" + (Math.round(Double.parseDouble(binding.lblResultado.getText().toString()) / 100.0 * 100) / 100.0));
+                        binding.lblOperacion.setText("" + (Math.round(Double.parseDouble(binding.lblResultado.getText().subSequence(1, binding.lblResultado.getText().length()).toString()) / 100.0 * 100) / 100.0));
+                        binding.lblResultado.setText("=" + (Math.round(Double.parseDouble(binding.lblResultado.getText().subSequence(1, binding.lblResultado.getText().length()).toString()) / 100.0 * 100) / 100.0));
                     }
                     igual = false;
                     lastCad = "";
@@ -181,6 +190,9 @@ public class MainActivity extends AppCompatActivity {
         binding.lblOperacion.setText("");
         binding.lblResultado.setText("0");
         establecerTamanyo();
+        igual = false;
+        lastCad = "";
+        lastNum = "";
     }
 
     public void maximizarSolucion() {

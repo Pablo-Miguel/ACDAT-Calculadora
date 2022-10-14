@@ -1,5 +1,6 @@
 package com.example.acdat_calculadora.eventos;
 
+import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,8 +17,16 @@ public class CalculadoraEventos implements View.OnClickListener {
         this.calculadora = calculadora;
         binding = calculadora.getBinding();
 
+        Button button;
         for(int i = 0; i < binding.gridLayout.getChildCount(); i++){
-            binding.gridLayout.getChildAt(i).setOnClickListener(this);
+            button = (Button) binding.gridLayout.getChildAt(i);
+            button.setOnClickListener(this);
+            if(button.getText().toString().matches("[0-9]") || button.getText().toString().equals(".")){
+                button.setBackgroundColor(Color.parseColor("#FF9083"));
+            }
+            else {
+                button.setBackgroundColor(Color.parseColor("#FF6F5F"));
+            }
         }
 
     }
@@ -54,7 +63,7 @@ public class CalculadoraEventos implements View.OnClickListener {
                 calculadora.maximizarSolucion();
                 break;
             case R.id.btnComa:
-                calculadora.setNumPantalla(".");
+                calculadora.setComaPantalla();
                 break;
         }
     }
