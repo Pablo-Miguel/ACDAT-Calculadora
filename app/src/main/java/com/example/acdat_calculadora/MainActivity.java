@@ -56,10 +56,11 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     binding.lblOperacion.setText(binding.lblOperacion.getText() + signo + Math.round(memoria * 100) / 100.0);
                 }
-                if (eval(binding.lblOperacion.getText().toString()) % 1 == 0) {
-                    binding.lblResultado.setText("" + Math.round(eval(binding.lblOperacion.getText().toString())));
+                Double resultado = eval(binding.lblOperacion.getText().toString());
+                if (resultado % 1 == 0) {
+                    binding.lblResultado.setText("" + Math.round(resultado));
                 } else {
-                    binding.lblResultado.setText("" + (Math.round(eval(binding.lblOperacion.getText().toString()) * 100) / 100.0));
+                    binding.lblResultado.setText("" + (Math.round(resultado * 100) / 100.0));
                 }
             } else {
                 binding.lblOperacion.setText("" + memoria);
@@ -85,10 +86,20 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         binding.lblOperacion.setText(binding.lblOperacion.getText() + "" + (Math.round(Double.parseDouble(num) * 100) / 100.0));
                     }
-                    if (eval(binding.lblOperacion.getText().toString()) % 1 == 0) {
-                        binding.lblResultado.setText("" + Math.round(eval(binding.lblOperacion.getText().toString())));
+                    Double resultado = eval(binding.lblOperacion.getText().toString());
+                    if (resultado % 1 == 0) {
+                        if(resultado.toString().equals("Infinity")){
+                            binding.lblResultado.setText("" + resultado);
+                        }
+                        else{
+                            binding.lblResultado.setText("" + Math.round(resultado));
+                        }
                     } else {
-                        binding.lblResultado.setText("" + (Math.round(eval(binding.lblOperacion.getText().toString()) * 100) / 100.0));
+                        if(resultado.toString().equals("Infinity")) {
+                            binding.lblResultado.setText("" + resultado);
+                        } else {
+                            binding.lblResultado.setText("" + (Math.round(resultado * 100) / 100.0));
+                        }
                     }
                 } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     if (lastNum.chars().filter(ch -> ch == '.').count() <= 1) {
@@ -135,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setPorcentaje() {
         establecerTamanyo();
-        if (!lastNum.equals("") && !lastCad.equals("")) {
+        if (!lastNum.equals("") && !lastCad.equals("") && !binding.lblResultado.getText().equals("Infinity")) {
             char car = binding.lblOperacion.getText().charAt(binding.lblOperacion.getText().length() - 1);
             if (car != '+' && car != '-' && car != 'x' && car != '/' && car != ' ') {
                 if (!igual) {
@@ -144,10 +155,11 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         binding.lblOperacion.setText(lastCad + (Math.round(Double.parseDouble(lastNum) / 100.0 * 100) / 100.0));
                     }
+                    Double resultado = eval(binding.lblOperacion.getText().toString());
                     if (eval(binding.lblOperacion.getText().toString()) % 1 == 0) {
-                        binding.lblResultado.setText("" + (Math.round(eval(binding.lblOperacion.getText().toString()))));
+                        binding.lblResultado.setText("" + (Math.round(resultado)));
                     } else {
-                        binding.lblResultado.setText("" + (Math.round(eval(binding.lblOperacion.getText().toString()) * 100) / 100.0));
+                        binding.lblResultado.setText("" + (Math.round(resultado * 100) / 100.0));
                     }
                 } else {
                     if ((Double.parseDouble(binding.lblResultado.getText().toString()) / 100.0) % 1 == 0) {
