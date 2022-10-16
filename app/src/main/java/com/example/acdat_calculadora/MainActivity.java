@@ -121,10 +121,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setComaPantalla() {
+        establecerTamanyo();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            if (lastNum.chars().filter(ch -> ch == '.').count() < 1) {
-                lastNum += ".";
-                binding.lblOperacion.setText(binding.lblOperacion.getText() + ".");
+            if (!igual) {
+                if (lastNum.chars().filter(ch -> ch == '.').count() < 1) {
+                    lastNum += ".";
+                    binding.lblOperacion.setText(binding.lblOperacion.getText() + ".");
+                }
+            }
+            else{
+                if (lastNum.chars().filter(ch -> ch == '.').count() < 1) {
+                    lastNum += ".";
+                    binding.lblOperacion.setText(".");
+                }
+                igual = false;
             }
             System.out.println("Numero: " + lastNum);
             System.out.println("Cont puntos: " + lastNum.chars().filter(ch -> ch == '.').count());
