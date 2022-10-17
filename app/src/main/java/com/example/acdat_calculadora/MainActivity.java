@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sumarRestarMemoria(String signo) {
-        establecerTamanyo();
         if (memoria != 0.0) {
+            establecerTamanyo();
             if (!igual) {
                 if (memoria % 1 == 0) {
                     binding.lblOperacion.setText(binding.lblOperacion.getText() + signo + Math.round(memoria));
@@ -121,20 +121,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setComaPantalla() {
-        establecerTamanyo();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            if (!igual) {
-                if (lastNum.chars().filter(ch -> ch == '.').count() < 1) {
+            if (lastNum.chars().filter(ch -> ch == '.').count() < 1 && !lastNum.equals("")) {
+                if (!igual) {
+                    establecerTamanyo();
                     lastNum += ".";
                     binding.lblOperacion.setText(binding.lblOperacion.getText() + ".");
                 }
-            }
-            else{
-                if (lastNum.chars().filter(ch -> ch == '.').count() < 1) {
-                    lastNum += ".";
-                    binding.lblOperacion.setText(".");
-                }
-                igual = false;
+                sign = true;
             }
             System.out.println("Numero: " + lastNum);
             System.out.println("Cont puntos: " + lastNum.chars().filter(ch -> ch == '.').count());
@@ -142,8 +136,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setSignoPantalla(String signo) {
-        establecerTamanyo();
         if (!binding.lblResultado.getText().equals("=Infinity")) {
+            establecerTamanyo();
             if (sign) {
                 if (!igual) {
                     binding.lblOperacion.setText(binding.lblOperacion.getText() + signo);
@@ -164,8 +158,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setPorcentaje() {
-        establecerTamanyo();
         if (!lastNum.equals("") && !lastCad.equals("") && !binding.lblResultado.getText().equals("=Infinity")) {
+            establecerTamanyo();
             char car = binding.lblOperacion.getText().charAt(binding.lblOperacion.getText().length() - 1);
             if (car != '+' && car != '-' && car != 'x' && car != '/' && car != ' ') {
                 if (!igual) {
