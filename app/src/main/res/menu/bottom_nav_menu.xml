@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Calculadora"
+        android:icon="@drawable/ic_baseline_calculate_24"
+        android:id="@+id/calculadora"/>
+    <item android:title="Historial"
+        android:icon="@drawable/ic_baseline_history_24"
+        android:id="@+id/historial"/>
+</menu>

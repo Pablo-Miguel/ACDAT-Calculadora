@@ -4,16 +4,18 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.acdat_calculadora.Calculadora;
 import com.example.acdat_calculadora.MainActivity;
 import com.example.acdat_calculadora.R;
 import com.example.acdat_calculadora.databinding.ActivityMainBinding;
+import com.example.acdat_calculadora.databinding.FragmentCalculadoraBinding;
 
 public class CalculadoraEventos implements View.OnClickListener {
 
-    private MainActivity calculadora;
-    private ActivityMainBinding binding;
+    private Calculadora calculadora;
+    private FragmentCalculadoraBinding binding;
 
-    public CalculadoraEventos(MainActivity calculadora){
+    public CalculadoraEventos(Calculadora calculadora){
         this.calculadora = calculadora;
         binding = calculadora.getBinding();
 
