@@ -14,7 +14,6 @@ import com.example.acdat_calculadora.servicio.Servicio;
 
 public class Calculadora extends Fragment {
     private FragmentCalculadoraBinding binding;
-    private Bundle bundle;
     private Double memoria;
     private Boolean igual, sign;
     private String lastNum, lastCad;
@@ -37,6 +36,18 @@ public class Calculadora extends Fragment {
         binding.lblResultado.setScrollbarFadingEnabled(true);
         binding.lblResultado.setHorizontallyScrolling(true);
 
+        savedInstanceState = this.getArguments();
+        if (savedInstanceState != null) {
+            String op = savedInstanceState.getString("Operacion", "");
+            if(!op.equals("")){
+                sign = true;
+                op = op.replace("\n", "");
+                String[] temp = op.split("=");
+                binding.lblOperacion.setText(temp[0]);
+                binding.lblResultado.setText("=" + temp[1]);
+            }
+        }
+
         return view;
     }
 
@@ -44,18 +55,6 @@ public class Calculadora extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    public Calculadora() {
-        bundle = this.getArguments();
-        if (bundle != null) {
-            String op = bundle.getString("Operacion", "");
-            if(!op.equals("")){
-                String[] temp = op.split("=");
-                binding.lblOperacion.setText(temp[0]);
-                binding.lblResultado.setText(temp[1]);
-            }
-        }
     }
 
     public FragmentCalculadoraBinding getBinding() {
@@ -226,7 +225,9 @@ public class Calculadora extends Fragment {
         binding.lblOperacion.setTypeface(null, Typeface.NORMAL);
         binding.lblResultado.setTypeface(null, Typeface.BOLD);
         igual = true;
-        Servicio.getInstance().anyadirOperacion(binding.lblOperacion.getText().toString(), binding.lblResultado.getText().toString());
+        if(!binding.lblResultado.getText().equals("0")){
+            Servicio.getInstance().anyadirOperacion(binding.lblOperacion.getText().toString(), binding.lblResultado.getText().toString());
+        }
     }
 
     //Librería externa
