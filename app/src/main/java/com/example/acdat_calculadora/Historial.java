@@ -2,13 +2,17 @@ package com.example.acdat_calculadora;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -47,6 +51,24 @@ public class Historial extends Fragment {
             binding.listHistorial.setVisibility(View.INVISIBLE);
             binding.textView.setVisibility(View.VISIBLE);
         }
+
+        binding.listHistorial.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Calculadora calc = new Calculadora();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("Operacion", binding.listHistorial.getItemAtPosition(position).toString());
+                calc.setArguments(bundle);
+
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frameLayout, calc);
+                fragmentTransaction.commit();
+
+            }
+        });
 
         return view;
     }

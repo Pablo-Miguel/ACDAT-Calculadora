@@ -14,6 +14,7 @@ import com.example.acdat_calculadora.servicio.Servicio;
 
 public class Calculadora extends Fragment {
     private FragmentCalculadoraBinding binding;
+    private Bundle bundle;
     private Double memoria;
     private Boolean igual, sign;
     private String lastNum, lastCad;
@@ -43,6 +44,18 @@ public class Calculadora extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public Calculadora() {
+        bundle = this.getArguments();
+        if (bundle != null) {
+            String op = bundle.getString("Operacion", "");
+            if(!op.equals("")){
+                String[] temp = op.split("=");
+                binding.lblOperacion.setText(temp[0]);
+                binding.lblResultado.setText(temp[1]);
+            }
+        }
     }
 
     public FragmentCalculadoraBinding getBinding() {
