@@ -45,6 +45,19 @@ public class Calculadora extends Fragment {
                 String[] temp = op.split("=");
                 binding.lblOperacion.setText(temp[0]);
                 binding.lblResultado.setText("=" + temp[1]);
+
+                StringBuilder cadTemp = new StringBuilder(temp[0]);
+                Boolean terminar = false;
+                for(int i = temp[0].length() - 1; i >= 0 && !terminar; i--){
+                    if(temp[0].charAt(i) > '0' && temp[0].charAt(i) < '9'){
+                        cadTemp.deleteCharAt(i);
+                    }
+                    else{
+                        terminar = true;
+                    }
+                }
+                lastCad = cadTemp.toString();
+                lastNum = temp[0].substring(cadTemp.length());
             }
         }
 
